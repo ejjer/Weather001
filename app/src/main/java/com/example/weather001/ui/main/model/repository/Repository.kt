@@ -5,5 +5,6 @@ import com.example.weather001.ui.main.model.repository.entities.Weather
 
 interface Repository {
     fun getWeatherFromServer(): Weather
-    fun getWeatherFromLocalStorage(): Weather
+    fun getWeatherFromLocalStorageRus(): List<Weather>
+    fun getWeatherFromLocalStorageWorld(): List<Weather>
 }
