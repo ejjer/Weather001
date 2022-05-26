@@ -6,21 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-
-import com.example.weather001.databinding.MainFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.example.weather001.ui.main.model.repository.AppState
 import com.google.android.material.snackbar.Snackbar
 import com.example.weather001.ui.main.model.repository.entities.Weather
 import com.example.weather001.R
+import com.example.weather001.databinding.MainFragmentBinding
 
 
 class MainFragment : Fragment() {
-
-
     private val viewModel: MainViewModel by viewModel()
 
-    private var _binding: MainFragmentBinding? = null
+    private var _binding:MainFragmentBinding? = null
+
+   // private var _binding: MainFragmentBinding? = null
 
     private val binding get() = _binding!!
 
