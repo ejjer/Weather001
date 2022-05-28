@@ -4,16 +4,16 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.weather001.ui.main.details.DetailsFragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weather001.databinding.MainFragmentRecyclerItemBinding
+import com.example.weather001.databinding.FragmetMainReciclerItemBinding
 import com.example.weather001.ui.main.model.repository.entities.Weather
+import com.example.weather001.ui.main.MainFragment
 
 //создаем адаптер
-class MainFragmentAdapter(private val itemClickListener: DetailsFragment.OnItemViewClickListener)
+class MainFragmentAdapter(private val itemClickListener: MainFragment.OnItemViewClickListener)
     : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
     private var weatherData: List<Weather> = listOf()
-    private lateinit var binding: MainFragmentRecyclerItemBinding
+    private lateinit var binding: FragmetMainReciclerItemBinding
 
     @SuppressLint("NotifyDataSetChanged")
     fun setWeather(data: List<Weather>) {
@@ -22,7 +22,7 @@ class MainFragmentAdapter(private val itemClickListener: DetailsFragment.OnItemV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        binding = MainFragmentRecyclerItemBinding.inflate(
+        binding = FragmetMainReciclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return MainViewHolder(binding.root)
