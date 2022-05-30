@@ -9,7 +9,7 @@ import com.example.weather001.databinding.FragmetMainReciclerItemBinding
 import com.example.weather001.ui.main.model.repository.entities.Weather
 import com.example.weather001.ui.main.MainFragment
 
-//создаем адаптер
+
 class MainFragmentAdapter(private val itemClickListener: MainFragment.OnItemViewClickListener)
     : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
     private var weatherData: List<Weather> = listOf()
