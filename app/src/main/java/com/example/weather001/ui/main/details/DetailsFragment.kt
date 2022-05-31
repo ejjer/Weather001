@@ -17,9 +17,9 @@ import com.example.weather001.ui.main.MainViewModel
 
 
 class DetailsFragment : Fragment() {
-        private var _binding:DetailsFragmentBinding? = null
+    private var _binding: DetailsFragmentBinding? = null
 
-   // private var _binding: MainFragmentBinding? = null
+    // private var _binding: MainFragmentBinding? = null
 
     private val binding get() = _binding!!
 
@@ -33,7 +33,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let{
+        arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
             renderData(it)
 
         }
@@ -46,8 +46,8 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun renderData(weather: Weather){
-        with(binding){
+    private fun renderData(weather: Weather) {
+        with(binding) {
             val city = weather.city
             cityName.text = city.city
             cityCoordinates.text = String.format(
@@ -64,7 +64,7 @@ class DetailsFragment : Fragment() {
     companion object {
         const val BUNDLE_EXTRA = "weather"
 
-        fun newInstance(bundle: Bundle): DetailsFragment{
+        fun newInstance(bundle: Bundle): DetailsFragment {
             val fragment = DetailsFragment()
             fragment.arguments = bundle
             return fragment

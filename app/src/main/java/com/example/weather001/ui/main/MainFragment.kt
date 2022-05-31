@@ -105,7 +105,8 @@ class MainFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(weather: Weather)
     }
-    companion object{
+
+    companion object {
         fun newInterface() = MainFragment()
     }
 }

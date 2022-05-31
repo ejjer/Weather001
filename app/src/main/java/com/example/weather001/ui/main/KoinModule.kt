@@ -8,7 +8,7 @@ import com.example.weather001.ui.main.model.repository.RepositoryImpl
 
 val appModule = module {
 
-    single<Repository>{RepositoryImpl()}
+    single<Repository> { RepositoryImpl() }
     //View models
     viewModel { MainViewModel(get()) }
 }
