@@ -19,9 +19,9 @@ import com.example.weather001.ui.main.MainViewModel
 class DetailsFragment : Fragment() {
     private var _binding: DetailsFragmentBinding? = null
 
-    // private var _binding: MainFragmentBinding? = null
 
     private val binding get() = _binding!!
+    private val viewModel:DetailsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +34,11 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
-            renderData(it)
-
+            renderStaticData(it)
+            viewModel.weatherLiveData.observe(viewLifecycleOwner){ appState ->
+                renderDynamicData(appState)
+            }
+            viewModel.loadData(it.city.lat,it.city.lon)
         }
 
 
@@ -46,7 +49,7 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun renderData(weather: Weather) {
+    private fun renderStaticData(weather: Weather) {
         with(binding) {
             val city = weather.city
             cityName.text = city.city
@@ -55,9 +58,27 @@ class DetailsFragment : Fragment() {
                 city.lat.toString(),
                 city.lon.toString()
             )
-            temperatureValue.text = weather.temperature.toString()
-            feelsLikeValue.text = weather.feelsLike.toString()
+        }
+    }
 
+    private fun renderDynamicData(appState: AppState) = with(binding) {
+        when (appState) {
+            is AppState.Error -> {
+                mainView.visibility = View.INVISIBLE
+                progressBar.visibility = View.GONE
+                errorTV.visibility = View.VISIBLE
+            }
+            AppState.Loading -> {
+                mainView.visibility = View.INVISIBLE
+                progressBar.visibility = View.VISIBLE
+            }
+            is AppState.Success -> {
+                progressBar.visibility = View.GONE
+                mainView.visibility = View.VISIBLE
+                temperatureValue.text = appState.weatherData[0].temperature.toString()
+                feelsLikeValue.text = appState.weatherData[0].feelsLike.toString()
+                weatherCondition.text = appState.weatherData[0].condition
+            }
         }
     }
 
