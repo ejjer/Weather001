@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
 import androidx.lifecycle.Observer
 import com.example.weather001.R
 import com.example.weather001.databinding.MainFragmentBinding
@@ -36,6 +36,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            val editText = EditText(context)
+            editText.showKeyboard()
+            //..
+            editText.hideKeyboard()
+
             mainFragmentRecyclerView.adapter = adapter
             mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
 
