@@ -1,30 +1,26 @@
 package com.example.weather001.ui.main.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.example.weather001.ui.main.model.repository.AppState
-import com.google.android.material.snackbar.Snackbar
-import com.example.weather001.ui.main.model.repository.entities.Weather
+import androidx.fragment.app.Fragment
 import com.example.weather001.R
 import com.example.weather001.databinding.DetailsFragmentBinding
-import com.example.weather001.databinding.MainFragmentBinding
-import com.example.weather001.ui.main.MainViewModel
+import com.example.weather001.ui.main.model.repository.AppState
+import com.example.weather001.ui.main.model.repository.entities.Weather
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class DetailsFragment : Fragment() {
     private var _binding: DetailsFragmentBinding? = null
-
-    // private var _binding: MainFragmentBinding? = null
-
     private val binding get() = _binding!!
 
+    private val viewModel: DetailsViewModel by viewModel()
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
@@ -34,11 +30,10 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
-            renderData(it)
-
+            renderStaticData(it)
+            viewModel.weatherLiveData.observe(viewLifecycleOwner) { appState -> renderDynamicData(appState)}
+            viewModel.loadData(it.city.lat, it.city.lon)
         }
-
-
     }
 
     override fun onDestroyView() {
@@ -46,18 +41,34 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun renderData(weather: Weather) {
-        with(binding) {
-            val city = weather.city
-            cityName.text = city.city
-            cityCoordinates.text = String.format(
-                getString(R.string.city_coordinates),
-                city.lat.toString(),
-                city.lon.toString()
-            )
-            temperatureValue.text = weather.temperature.toString()
-            feelsLikeValue.text = weather.feelsLike.toString()
+    private fun renderStaticData(weather: Weather) = with(binding) {
+        val city = weather.city
+        cityName.text = city.city
+        cityCoordinates.text = String.format(
+            getString(R.string.city_coordinates),
+            city.lat.toString(),
+            city.lon.toString()
+        )
+    }
 
+    private fun renderDynamicData(appState: AppState) = with(binding) {
+        when (appState) {
+            is AppState.Error -> {
+                mainView.visibility = View.INVISIBLE
+                progressBar.visibility = View.GONE
+                errorTV.visibility = View.VISIBLE
+            }
+            AppState.Loading -> {
+                mainView.visibility = View.INVISIBLE
+                progressBar.visibility = View.VISIBLE
+            }
+            is AppState.Success -> {
+                progressBar.visibility = View.GONE
+                mainView.visibility = View.VISIBLE
+                temperatureValue.text = appState.weatherData[0].temperature.toString()
+                feelsLikeValue.text = appState.weatherData[0].feelsLike.toString()
+                weatherCondition.text = appState.weatherData[0].condition
+            }
         }
     }
 
@@ -69,7 +80,5 @@ class DetailsFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
-
     }
-
 }

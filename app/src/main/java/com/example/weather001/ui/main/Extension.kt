@@ -1,10 +1,8 @@
 package com.example.weather001.ui.main
 
 import android.content.Context
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.core.content.getSystemService
 import java.lang.RuntimeException
 import java.util.Date
 
