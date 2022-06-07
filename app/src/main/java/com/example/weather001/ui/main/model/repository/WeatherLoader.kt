@@ -25,7 +25,6 @@ object WeatherLoader {
             )
             urlConnection.readTimeout = 10000
             val bufferedReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
-            // преобразование ответа от сервера (JSON) в модель данных (WeatherDTO)
             val lines = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 getLinesForOld(bufferedReader)
             } else {
