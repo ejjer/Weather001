@@ -31,6 +31,12 @@
         <service android:name=".services.UsualService"/>
         <service android:name=".services.ForegroundService"/>
         <service android:name=".services.BoundService"/>
+        <receiver android:name=".MainBroadcastReceiver"
+            android:exported="true"
+            android:enabled="true"/>
+        <intent-filtr>
+            <action android:name="android.intent.action.LOCALE_CHANGED"/>
+        </intent-filtr>
     </application>
 
 </manifest>
