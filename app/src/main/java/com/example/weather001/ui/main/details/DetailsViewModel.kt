@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather001.ui.main.model.repository.AppState
 import com.example.weather001.ui.main.model.repository.Repository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class DetailsViewModel(private val repository: Repository) : ViewModel() {
     private val localLiveData: MutableLiveData<AppState> = MutableLiveData()
@@ -15,10 +14,16 @@ class DetailsViewModel(private val repository: Repository) : ViewModel() {
 
     fun loadData(lat: Double, lon: Double) {
         localLiveData.value = AppState.Loading
-        val job = viewModelScope.launch(Dispatchers.IO) {
-            val data = repository.getWeatherFromServer(lat, lon)
-            localLiveData.postValue(AppState.Success(listOf(data)))
+        val job = viewModelScope.launch(Dispatchers.Main) {
+            val task = async(Dispatchers.IO) {repository.getWeatherFromServer(lat,lon)}
+            val data = task.await()
+            if(isActive){
+
+            localLiveData.value = AppState.Success(listOf(data))
         }
+        }
+
+
 
     }
 }
