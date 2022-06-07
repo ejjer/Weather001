@@ -30,6 +30,7 @@
 
         <service android:name=".services.UsualService"/>
         <service android:name=".services.ForegroundService"/>
+        <service android:name=".services.BoundService"/>
     </application>
 
 </manifest>
