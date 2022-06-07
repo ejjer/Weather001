@@ -24,7 +24,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         localLiveData.value = AppState.Loading
 
         viewModelScope.launch (Dispatchers.IO){
-            delay(1000)
+            delay(500)
             if (isActive) {
                 localLiveData.postValue(
                     if (isRussian) {
