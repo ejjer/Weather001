@@ -2,4 +2,7 @@
 <resources>
     <string name="change_cities_list">Изменить список городов</string>
     <string name="error_happened">Произошла ошибка</string>
+    <string name="calculate">Расчет</string>
+    <string name="default_number">1</string>
+    <string name="start_usual_service">start usual service</string>
 </resources>

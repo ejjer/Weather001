@@ -21,11 +21,10 @@ object WeatherLoader {
             urlConnection = uri.openConnection() as HttpsURLConnection
             urlConnection.requestMethod = "GET"
             urlConnection.addRequestProperty(
-                "X-Yandex-API-Key", "7a436743-4c9e-415e-9edc-cc6b53f7c987"
+                "X-Yandex-API-Key", "3589d9e5-bb67-4397-8574-d8e99cc2fac3"
             )
             urlConnection.readTimeout = 10000
             val bufferedReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
-            // преобразование ответа от сервера (JSON) в модель данных (WeatherDTO)
             val lines = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 getLinesForOld(bufferedReader)
             } else {
