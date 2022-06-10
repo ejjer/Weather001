@@ -22,6 +22,7 @@ object ApiUtils {
 
             chain.proceed(request)
         }
+
         return httpClient.build()
 
     }
