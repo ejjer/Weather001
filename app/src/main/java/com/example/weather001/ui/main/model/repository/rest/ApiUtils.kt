@@ -17,7 +17,7 @@ object ApiUtils {
             val original = chain.request()
             val request = original.newBuilder()
                 .header("X-Yandex-API-Key", "3589d9e5-bb67-4397-8574-d8e99cc2fac3")
-                .method(original.method(), original.body())
+                .method(original.method, original.body)
                 .build()
 
             chain.proceed(request)
