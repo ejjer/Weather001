@@ -86,14 +86,8 @@ class MainFragment : Fragment() {
     }
 
     private fun changeWeatherDataSet() = with(binding) {
-        if (isDataSetRus) {
-            viewModel.getWeatherFromLocalSourceWorld()
-            mainFragmentFAB.setImageResource(R.drawable.ic_earth)
-        } else {
-            viewModel.getWeatherFromLocalSourceRus()
-            mainFragmentFAB.setImageResource(R.drawable.ic_russia)
-        }
         isDataSetRus = !isDataSetRus
+        initDataSet()
     }
 
     private fun renderData(appState: AppState) = with(binding) {
