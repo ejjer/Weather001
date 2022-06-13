@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import coil.load
 import com.example.weather001.R
 import com.example.weather001.databinding.DetailsFragmentBinding
 import com.example.weather001.ui.main.model.repository.AppState
@@ -26,6 +27,8 @@ class DetailsFragment : Fragment() {
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +71,9 @@ class DetailsFragment : Fragment() {
                 temperatureValue.text = appState.weatherData[0].temperature.toString()
                 feelsLikeValue.text = appState.weatherData[0].feelsLike.toString()
                 weatherCondition.text = appState.weatherData[0].condition
+
+                imageView.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                
             }
         }
     }
