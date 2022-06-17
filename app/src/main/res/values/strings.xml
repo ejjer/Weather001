@@ -12,4 +12,5 @@
     <string name="start_usual_service">Запустить обычный сервис</string>
     <string name="threads">Потоки</string>
     <string name="history">История</string>
+    <string name="need_permissions_to_read_contacts">Необходимо дать разрешение на чтение контактов</string>
 </resources>
