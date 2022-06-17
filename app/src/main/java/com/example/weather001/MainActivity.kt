@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.weather001.ui.main.MainFragment
+import com.example.weather001.ui.main.contacts.ContactsFragment
 import com.example.weather001.ui.main.history.HistoryFragment
 import com.example.weather001.ui.main.theads.ThreadsFragment
 
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_history -> {
                 openFragment(HistoryFragment.newInstance())
+                true
+            }
+            R.id.menu_content_provider->{
+                openFragment(ContactsFragment.newInstance())
                 true
             }
             else -> super.onOptionsItemSelected(item)

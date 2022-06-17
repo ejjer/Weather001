@@ -7,4 +7,5 @@
     <string name="start_usual_service">start usual service</string>
     <string name="history">История</string>
     <string name="need_permissions_to_read_contacts">Необходимо дать разрешение на чтение контактов</string>
+    <string name="content_provider">Контент провайдер</string>
 </resources>
