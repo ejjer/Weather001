@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,31 +39,23 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val editText = EditText(context)
-            editText.showKeyboard()
-            //..
-            editText.hideKeyboard()
-
             mainFragmentRecyclerView.adapter = adapter
             mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
 
             val observer = Observer<AppState> { renderData(it) }
             viewModel.liveData.observe(viewLifecycleOwner, observer)
             viewModel.getWeatherFromLocalSourceRus()
-
         }
 
         loadDataSet()
         initDataSet()
-
     }
 
-    private fun initDataSet() = with (binding){
-        if(isDataSetRus){
+    private fun initDataSet() = with(binding) {
+        if (isDataSetRus) {
             viewModel.getWeatherFromLocalSourceWorld()
             mainFragmentFAB.setImageResource(R.drawable.ic_earth)
-        }
-        else{
+        } else {
             viewModel.getWeatherFromLocalSourceRus()
             mainFragmentFAB.setImageResource(R.drawable.ic_russia)
         }
@@ -79,10 +71,11 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun saveDataSetToDisk(){
+    private fun saveDataSetToDisk() {
         val editor = activity?.getPreferences(Context.MODE_PRIVATE)?.edit()
-        editor?.putBoolean(dataSetKey,isDataSetRus)
+        editor?.putBoolean(dataSetKey, isDataSetRus)
         editor?.apply()
+
     }
 
     private fun changeWeatherDataSet() = with(binding) {
@@ -118,11 +111,7 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 progressBar.visibility = View.GONE
                 Snackbar
-                    .make(
-                        binding.mainFragmentFAB,
-                        getString(R.string.error),
-                        Snackbar.LENGTH_INDEFINITE
-                    )
+                    .make(binding.mainFragmentFAB, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
             }
@@ -139,6 +128,6 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        fun newInterface() = MainFragment()
+        fun newInstance() = MainFragment()
     }
 }

@@ -5,8 +5,8 @@ import com.example.weather001.ui.main.details.DetailsViewModel
 import com.example.weather001.ui.main.history.HistoryViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import com.example.weather001.ui.main.model.repository.Repository
-import com.example.weather001.ui.main.model.repository.RepositoryImpl
+import com.example.weather001.ui.main.model.repository.repository.Repository
+import com.example.weather001.ui.main.model.repository.repository.RepositoryImpl
 import org.koin.android.ext.koin.androidContext
 import com.example.weather001.ui.main.model.repository.database.Database
 

@@ -1,9 +1,8 @@
-package com.example.weather001.ui.main.model.repository
+package com.example.weather001.ui.main.model.repository.repository
 
 import com.example.weather001.ui.main.model.repository.entities.Weather
 import com.example.weather001.ui.main.model.repository.entities.getRussianCities
 import com.example.weather001.ui.main.model.repository.entities.getWorldCities
-import com.example.weather001.ui.main.model.repository.WeatherLoader
 import com.example.weather001.ui.main.model.repository.database.Database
 import com.example.weather001.ui.main.model.repository.database.HistoryEntity
 import com.example.weather001.ui.main.model.repository.entities.City

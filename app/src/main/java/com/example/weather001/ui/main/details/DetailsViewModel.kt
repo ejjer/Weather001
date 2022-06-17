@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather001.ui.main.model.repository.AppState
-import com.example.weather001.ui.main.model.repository.Repository
+import com.example.weather001.ui.main.model.repository.repository.Repository
 import kotlinx.coroutines.*
 
 class DetailsViewModel(private val repository: Repository) : ViewModel() {

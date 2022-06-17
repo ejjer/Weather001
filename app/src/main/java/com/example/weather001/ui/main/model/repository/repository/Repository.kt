@@ -1,4 +1,4 @@
-package com.example.weather001.ui.main.model.repository
+package com.example.weather001.ui.main.model.repository.repository
 
 import com.example.weather001.ui.main.model.repository.entities.Weather
 
