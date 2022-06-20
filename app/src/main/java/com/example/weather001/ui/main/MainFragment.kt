@@ -1,5 +1,6 @@
 package com.example.weather001.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.example.weather001.ui.main.model.repository.entities.Weather
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+private const val dataSetKey = "dataSetKey"
+
 class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModel()
     private var _binding: MainFragmentBinding? = null
@@ -28,7 +31,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,23 +39,19 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val editText = EditText(context)
-            editText.showKeyboard()
-            //..
-            editText.hideKeyboard()
-
             mainFragmentRecyclerView.adapter = adapter
             mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
 
             val observer = Observer<AppState> { renderData(it) }
             viewModel.liveData.observe(viewLifecycleOwner, observer)
             viewModel.getWeatherFromLocalSourceRus()
-
         }
 
+        loadDataSet()
+        initDataSet()
     }
 
-    private fun changeWeatherDataSet() = with(binding) {
+    private fun initDataSet() = with(binding) {
         if (isDataSetRus) {
             viewModel.getWeatherFromLocalSourceWorld()
             mainFragmentFAB.setImageResource(R.drawable.ic_earth)
@@ -60,7 +59,28 @@ class MainFragment : Fragment() {
             viewModel.getWeatherFromLocalSourceRus()
             mainFragmentFAB.setImageResource(R.drawable.ic_russia)
         }
+        saveDataSetToDisk()
+    }
+
+    private fun loadDataSet() {
+        activity?.let {
+            isDataSetRus = activity
+                ?.getPreferences(Context.MODE_PRIVATE)
+                ?.getBoolean(dataSetKey, true)
+                ?: true
+        }
+    }
+
+    private fun saveDataSetToDisk() {
+        val editor = activity?.getPreferences(Context.MODE_PRIVATE)?.edit()
+        editor?.putBoolean(dataSetKey, isDataSetRus)
+        editor?.apply()
+
+    }
+
+    private fun changeWeatherDataSet() = with(binding) {
         isDataSetRus = !isDataSetRus
+        initDataSet()
     }
 
     private fun renderData(appState: AppState) = with(binding) {
@@ -91,11 +111,7 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 progressBar.visibility = View.GONE
                 Snackbar
-                    .make(
-                        binding.mainFragmentFAB,
-                        getString(R.string.error),
-                        Snackbar.LENGTH_INDEFINITE
-                    )
+                    .make(binding.mainFragmentFAB, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
             }
@@ -112,6 +128,6 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        fun newInterface() = MainFragment()
+        fun newInstance() = MainFragment()
     }
 }
