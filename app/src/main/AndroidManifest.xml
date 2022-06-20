@@ -7,8 +7,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-
-
     <application
         android:name=".ui.main.App"
         android:allowBackup="true"
@@ -20,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Weather001"
         tools:targetApi="31">
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,6 +27,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </activity>
@@ -39,7 +40,6 @@
             android:name=".MainBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
-
     </application>
 
 </manifest>
