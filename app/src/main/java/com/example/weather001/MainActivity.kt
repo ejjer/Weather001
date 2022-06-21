@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.weather001.ui.main.MainFragment
 import com.example.weather001.ui.main.contacts.ContactsFragment
 import com.example.weather001.ui.main.history.HistoryFragment
+import com.example.weather001.ui.main.maps.MapsFragment
 import com.example.weather001.ui.main.theads.ThreadsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +40,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_content_provider->{
                 openFragment(ContactsFragment.newInstance())
+                true
+            }
+            R.id.menu_google_maps ->{
+                openFragment(MapsFragment.newInstance())
                 true
             }
             else -> super.onOptionsItemSelected(item)
