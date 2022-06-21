@@ -1,8 +1,10 @@
 package com.example.weather001.ui.main
 
 import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.google.android.material.snackbar.Snackbar
 import java.lang.RuntimeException
 import java.util.Date
 
@@ -34,4 +36,12 @@ fun EditText.hideKeyboard(): Boolean{
         return  inputMethodManager.hideSoftInputFromWindow(windowToken,0)
     } catch (ignored: RuntimeException){}
     return false
+}
+fun View.showSnackBar(
+    text: String,
+    actionText: String,
+    length: Int = Snackbar.LENGTH_INDEFINITE,
+    action: (View) -> Unit,
+) {
+    Snackbar.make(this, text, length).setAction(actionText, action).show()
 }
